@@ -1,1 +1,1 @@
-A repository with challenges from frontendmentor.io and a detailed commentary of what I learned.
+The challenge: [text](https://www.frontendmentor.io/challenges/ecommerce-product-page-UPsZ9MJp6)
