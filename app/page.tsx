@@ -1,5 +1,9 @@
+import { Header } from "./ui/header-section/Header";
+
 export default function Home() {
   return (
-    <div>App</div>
+    <div>
+      <Header />
+    </div>
   );
 }
