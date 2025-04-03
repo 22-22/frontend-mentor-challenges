@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { useItemStore } from "@/app/store";
 
 export const Item = () => {
+    const addToCart = useItemStore((state: any) => state.addToCart)
     const [count, setCount] = useState(0);
 
     const handleAddItem = () => {
@@ -11,6 +13,11 @@ export const Item = () => {
 
     const handleDeleteItem = () => {
         setCount((prevCount) => prevCount - 1)
+    }
+
+    const handleAddToCart = () => {
+        addToCart(count);
+        setCount(0);
     }
     return (
         <div className="pl-16">
@@ -36,7 +43,10 @@ export const Item = () => {
                     <span className="p-4 text-xl font-bold">{count}</span>
                     <button onClick={handleAddItem} className="p-4 text-2xl font-bold text-amber-600 cursor-pointer">+</button>
                 </span>
-                <button className="ml-4 bg-amber-600 py-4 px-12 rounded-md font-bold cursor-pointer">Add to cart</button>
+                <button
+                    onClick={handleAddToCart}
+                    className="ml-4 bg-amber-600 py-4 px-12 rounded-md font-bold cursor-pointer">
+                    Add to cart</button>
             </div>
         </div>
     )
