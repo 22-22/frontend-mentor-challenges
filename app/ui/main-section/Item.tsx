@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { useItemStore } from "@/app/store";
+import { ItemState } from "@/app/types";
 
 export const Item = () => {
-    const addToCart = useItemStore((state: any) => state.addToCart)
+    const addToCart = useItemStore((state: ItemState) => state.addToCart)
     const [count, setCount] = useState(0);
 
     const handleAddItem = () => {

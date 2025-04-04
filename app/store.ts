@@ -1,7 +1,8 @@
 import { create } from 'zustand'
+import { ItemState } from "./types"
 
-export const useItemStore = create((set) => ({
+export const useItemStore = create<ItemState>()((set) => ({
     items: 0,
-    addToCart: (newItems: number) => set((state: any) => ({ items: state.items + newItems })),
+    addToCart: (newItems: number) => set((state: ItemState) => ({ items: state.items + newItems })),
     removeAllItems: () => set({ items: 0 }),
 }))
