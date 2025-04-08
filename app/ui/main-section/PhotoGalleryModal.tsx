@@ -1,16 +1,17 @@
-"use client"
-
-import { FC, useState } from "react"
+import { FC } from "react"
 import Image from "next/image"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
+import { CloseIcon } from "../icons/CloseIcon";
+import { PreviousIcon } from "../icons/PreviousIcon";
+import { NextIcon } from "../icons/NextIcon";
 
 interface GalleryModalProps {
     setIsGalleryModalOpen: (isOpen: boolean) => void;
+    activeImage: number,
+    setActiveImage: (idx: number) => void
 }
 
-export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen }) => {
-    const [activeImage, setActiveImage] = useState(defaultActiveImage)
-
+export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage }) => {
     const closeGalleryModal = () => {
         setIsGalleryModalOpen(false)
     }
@@ -26,31 +27,31 @@ export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen
     }
 
     return (
-        <section className="absolute inset-0 w-full h-full bg-black/50">
-            <div className="flex flex-col items-center justify-center">
-                <div className="flex flex-col items-end">
-                    <button className="cursor-pointer" onClick={closeGalleryModal}>
-                        <Image src="/icon-close.svg" width={20} height={20} alt="close" />
+        <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-full bg-black/50"
+            onClick={closeGalleryModal} >
+            <div className="relative" onClick={(evt) => evt.stopPropagation()}>
+                <button className="absolute -top-10 right-10 text-white cursor-pointer hover:text-amber-600" onClick={closeGalleryModal}>
+                    <CloseIcon />
+                </button>
+                <div className="flex items-center">
+                    <button className="p-3 rounded-full bg-white cursor-pointer hover:text-amber-600" onClick={openPrevious}>
+                        <PreviousIcon />
                     </button>
-                    <div className="flex items-center">
-                        <button className="p-3 rounded-full bg-white cursor-pointer" onClick={openPrevious}>
-                            <Image src="/icon-previous.svg" width={10} height={10} alt="previous" />
-                        </button>
-                        <Image className="rounded-lg" src={`/image-product-${activeImage}.jpg`} width={400} height={400} alt={`sneakers-${defaultActiveImage}`} />
-                        <button className="p-3 rounded-full bg-white cursor-pointer" onClick={openNext}>
-                            <Image src="/icon-next.svg" width={10} height={10} alt="next" />
-                        </button>
-                    </div>
-                </div>
-                <div className="mt-6 flex items-center gap-4">
-                    {imageThumbnailSrcs.map((src, idx) => {
-                        idx = idx + 1;
-                        return <button className={`rounded-lg cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`} key={idx} onClick={() => setActiveImage(idx)}>
-                            <Image className={`rounded-lg ${idx === activeImage && "opacity-50"}`} src={src} width={100} height={100} alt={`sneakers-${idx}`} />
-                        </button>
-                    })}
+                    <Image className="rounded-lg" src={`/image-product-${activeImage}.jpg`} width={500} height={500} alt={`sneakers-${defaultActiveImage}`} />
+                    <button className="p-3 rounded-full bg-white cursor-pointer hover:text-amber-600" onClick={openNext}>
+                        <NextIcon />
+                    </button>
                 </div>
             </div>
-        </section>
+            <div className="mt-6 flex items-center gap-4"
+                onClick={(evt) => evt.stopPropagation()}>
+                {imageThumbnailSrcs.map((src, idx) => {
+                    idx = idx + 1;
+                    return <button className={`rounded-lg cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`} key={idx} onClick={() => setActiveImage(idx)}>
+                        <Image className={`rounded-lg ${idx === activeImage && "opacity-50"}`} src={src} width={100} height={100} alt={`sneakers-${idx}`} />
+                    </button>
+                })}
+            </div>
+        </div>
     )
 }

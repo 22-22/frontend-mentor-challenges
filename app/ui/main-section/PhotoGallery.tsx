@@ -1,16 +1,14 @@
-"use client"
-
-import { FC, useState } from "react"
+import { FC } from "react"
 import Image from "next/image"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
 
 interface GalleryModalProps {
-    setIsGalleryModalOpen: (isOpen: boolean) => void;
+    setIsGalleryModalOpen: (isOpen: boolean) => void,
+    activeImage: number,
+    setActiveImage: (idx: number) => void
 }
 
-export const PhotoGallery: FC<GalleryModalProps> = ({ setIsGalleryModalOpen }) => {
-    const [activeImage, setActiveImage] = useState(defaultActiveImage)
-
+export const PhotoGallery: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage }) => {
     const openGalleryModal = () => {
         setIsGalleryModalOpen(true)
     }
