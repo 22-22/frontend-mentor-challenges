@@ -13,9 +13,11 @@ export const Header = () => {
     }
     return (
         <header className="relative px-44">
-            <div className="py-5 flex justify-between border-b-gray-200 border-b-2">
+            <div className="flex justify-between border-b-gray-200 border-b-2">
                 <div className="flex items-center gap-10">
-                    <Image src="/logo.svg" width={138} height={20} alt="logo" />
+                    <h1>
+                        <Image src="/logo.svg" width={138} height={20} alt="logo" />
+                    </h1>
                     <Navigation />
                 </div>
                 <div className="flex items-center gap-10">
@@ -26,7 +28,7 @@ export const Header = () => {
                         <ItemsInCartCounter />
                     </div>
                     <Image
-                        className="cursor-pointer"
+                        className="rounded-full cursor-pointer hover:border-amber-600 hover:border-2"
                         src="/image-avatar.png"
                         width={50} height={50} alt="avatar"
                     />
