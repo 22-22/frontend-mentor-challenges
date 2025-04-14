@@ -1,29 +1,21 @@
 import { FC } from "react"
 import Image from "next/image"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
-import { CloseIcon } from "../icons/CloseIcon";
-import { PreviousIcon } from "../icons/PreviousIcon";
-import { NextIcon } from "../icons/NextIcon";
+import { CloseIcon } from "../colour-changing-icons/CloseIcon";
+import { NextIcon } from "../colour-changing-icons/NextIcon";
+import { PreviousIcon } from "../colour-changing-icons/PreviousIcon";
 
 interface GalleryModalProps {
     setIsGalleryModalOpen: (isOpen: boolean) => void;
     activeImage: number,
-    setActiveImage: (idx: number) => void
+    setActiveImage: (idx: number) => void,
+    openPrevious: () => void,
+    openNext: () => void,
 }
 
-export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage }) => {
+export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage, openPrevious, openNext }) => {
     const closeGalleryModal = () => {
         setIsGalleryModalOpen(false)
-    }
-
-    const openPrevious = () => {
-        const previousImage = activeImage > 1 ? activeImage - 1 : imageThumbnailSrcs.length
-        setActiveImage(previousImage)
-    }
-
-    const openNext = () => {
-        const nextImage = activeImage === imageThumbnailSrcs.length ? 1 : activeImage + 1
-        setActiveImage(nextImage)
     }
 
     return (
@@ -47,7 +39,7 @@ export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen
                 onClick={(evt) => evt.stopPropagation()}>
                 {imageThumbnailSrcs.map((src, idx) => {
                     idx = idx + 1;
-                    return <button className={`rounded-lg cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`} key={idx} onClick={() => setActiveImage(idx)}>
+                    return <button className={`rounded-lg bg-white cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`} key={idx} onClick={() => setActiveImage(idx)}>
                         <Image className={`rounded-lg ${idx === activeImage && "opacity-50"}`} src={src} width={100} height={100} alt={`sneakers-${idx}`} />
                     </button>
                 })}

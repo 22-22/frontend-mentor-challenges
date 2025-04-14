@@ -1,6 +1,5 @@
 "use client"
 
-import React from 'react'
 import { useItemStore } from "@/app/store"
 import { ItemState } from "@/app/types"
 
