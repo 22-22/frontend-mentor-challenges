@@ -1,8 +1,8 @@
 import { FC } from "react"
 import Image from "next/image"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
-import { NextIcon } from "../colour-changing-icons/NextIcon"
-import { PreviousIcon } from "../colour-changing-icons/PreviousIcon"
+import NextIcon from "../colour-changing-icons/NextIcon"
+import PreviousIcon from "../colour-changing-icons/PreviousIcon"
 
 interface GalleryModalProps {
     setIsGalleryModalOpen: (isOpen: boolean) => void,
@@ -12,7 +12,13 @@ interface GalleryModalProps {
     openNext: () => void,
 }
 
-export const PhotoGallery: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage, openPrevious, openNext }) => {
+const PhotoGallery: FC<GalleryModalProps> = ({
+    setIsGalleryModalOpen,
+    activeImage,
+    setActiveImage,
+    openPrevious,
+    openNext
+}) => {
     const openGalleryModal = () => {
         setIsGalleryModalOpen(true)
     }
@@ -33,7 +39,7 @@ export const PhotoGallery: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, act
             </div>
             <div className="hidden md:flex items-center gap-4 mt-6">
                 {imageThumbnailSrcs.map((src, idx) => {
-                    idx = idx + 1;
+                    idx = idx + 1
                     return <button className={`rounded-lg cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`}
                         key={src} onClick={() => setActiveImage(idx)}>
                         <Image className={`rounded-lg ${idx === activeImage && "opacity-50"}`} src={src} width={100} height={100} alt={`sneakers-${idx}`} />
@@ -43,3 +49,5 @@ export const PhotoGallery: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, act
         </section>
     )
 }
+
+export default PhotoGallery

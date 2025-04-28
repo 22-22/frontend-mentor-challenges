@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from "zustand"
 import { ItemState } from "./types"
 
 export const useItemStore = create<ItemState>()((set) => ({

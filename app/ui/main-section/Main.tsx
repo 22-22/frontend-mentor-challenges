@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Item } from "./Item"
-import { PhotoGallery } from "./PhotoGallery"
-import { PhotoGalleryModal } from "./PhotoGalleryModal"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
+import Item from "./Item"
+import PhotoGallery from "./PhotoGallery"
+import PhotoGalleryModal from "./PhotoGalleryModal"
 
-export const Main = () => {
+const Main = () => {
     const [activeImage, setActiveImage] = useState(defaultActiveImage)
     const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false)
 
@@ -20,6 +20,10 @@ export const Main = () => {
         setActiveImage(nextImage)
     }
 
+    const closeGalleryModal = () => {
+        setIsGalleryModalOpen(false)
+    }
+
     return (
         <main className="flex flex-col md:flex-row items-center md:px-52 pt-2 pb-20 md:py-14">
             <PhotoGallery
@@ -30,14 +34,16 @@ export const Main = () => {
                 openNext={openNext}
             />
             <Item />
-            {isGalleryModalOpen &&
-                <PhotoGalleryModal
-                    setIsGalleryModalOpen={setIsGalleryModalOpen}
-                    activeImage={activeImage}
-                    setActiveImage={setActiveImage}
-                    openPrevious={openPrevious}
-                    openNext={openNext}
-                />}
+            <PhotoGalleryModal
+                isOpen={isGalleryModalOpen}
+                onClose={closeGalleryModal}
+                activeImage={activeImage}
+                setActiveImage={setActiveImage}
+                openPrevious={openPrevious}
+                openNext={openNext}
+            />
         </main>
     )
 }
+
+export default Main

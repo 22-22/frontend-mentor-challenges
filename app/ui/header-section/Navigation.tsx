@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export const Navigation = () => {
+const Navigation = () => {
     return (
         <nav className="hidden md:block">
             <ul className="flex gap-8 font-kumbh text-gray-400">
@@ -23,3 +23,5 @@ export const Navigation = () => {
         </nav>
     )
 }
+
+export default Navigation

@@ -1,16 +1,14 @@
-import { FC } from "react";
+import { FC } from "react"
 import Link from "next/link"
-import { CloseIcon } from "../colour-changing-icons/CloseIcon";
+import CloseIcon from "../colour-changing-icons/CloseIcon"
 
 interface NavigationModalMobileProps {
-    isOpen: boolean;
-    onClose: () => void;
+    isOpen: boolean,
+    onClose: () => void,
 }
 
 const NavigationModalMobile: FC<NavigationModalMobileProps> = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-
-    return (
+    return isOpen && (
         <div className="fixed inset-0 z-10 w-screen h-screen bg-black/50" onClick={onClose}>
             <div className="w-2/3 h-screen p-6 bg-white" onClick={(evt) => evt.stopPropagation()}>
                 <button className="cursor-pointer" onClick={onClose}>
@@ -27,7 +25,7 @@ const NavigationModalMobile: FC<NavigationModalMobileProps> = ({ isOpen, onClose
                 </nav>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default NavigationModalMobile;
+export default NavigationModalMobile

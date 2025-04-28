@@ -1,5 +1,5 @@
-import { Header } from "./ui/header-section/Header";
-import { Main } from "./ui/main-section/Main";
+import Header from "./ui/header-section/Header"
+import Main from "./ui/main-section/Main"
 
 export default function Home() {
   return (
@@ -7,5 +7,5 @@ export default function Home() {
       <Header />
       <Main />
     </div>
-  );
+  )
 }

@@ -1,24 +1,35 @@
-"use client";
+"use client"
 
 import { useState } from "react"
 import Image from "next/image"
-import { Navigation } from "./Navigation"
-import { ItemsInCartCounter } from "./ItemsInCartCounter"
-import { CartModal } from "./CartModal"
-import { useItemStore } from "@/app/store";
-import { ItemState } from "@/app/types";
+import { useItemStore } from "@/app/store"
+import { ItemState } from "@/app/types"
+import Navigation from "./Navigation"
+import ItemsInCartCounter from "./ItemsInCartCounter"
+import CartModal from "./CartModal"
+import NavigationModalMobile from "./NavigationModalMobile"
 
-export const Header = () => {
+const Header = () => {
     const itemsInCart = useItemStore((state: ItemState) => state.items)
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isCartModalOpen, setIsCartModalOpen] = useState(false)
+    const [isNavModalOpen, setIsNavModalOpen] = useState(false)
+
     const toggleModal = () => {
-        setIsModalOpen(!isModalOpen)
+        setIsCartModalOpen(!isCartModalOpen)
     }
+    const openNavModal = () => {
+        setIsNavModalOpen(true)
+    }
+    const closeNavModal = () => {
+        setIsNavModalOpen(false)
+    }
+
     return (
         <header className="p-5 md:px-44 md:py-0">
             <div className="flex justify-between md:border-b-gray-200 md:border-b-2">
                 <div className="flex items-center gap-4 md:gap-10">
-                    <Image className="block md:hidden cursor-pointer" src="/icon-menu.svg" width={20} height={20} alt="menu" />
+                    <Image onClick={openNavModal} className="block md:hidden cursor-pointer" src="/icon-menu.svg" width={20} height={20} alt="menu" />
+                    <NavigationModalMobile isOpen={isNavModalOpen} onClose={closeNavModal} />
                     <h1>
                         <Image src="/logo.svg" width={138} height={20} alt="logo" />
                     </h1>
@@ -38,7 +49,9 @@ export const Header = () => {
                     />
                 </div>
             </div>
-            <CartModal isModalOpen={isModalOpen} />
+            <CartModal isOpen={isCartModalOpen} />
         </header>
     )
 }
+
+export default Header

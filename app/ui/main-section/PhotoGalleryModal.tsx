@@ -1,28 +1,32 @@
 import { FC } from "react"
 import Image from "next/image"
 import { defaultActiveImage, imageThumbnailSrcs } from "@/app/constants"
-import { CloseIcon } from "../colour-changing-icons/CloseIcon";
-import { NextIcon } from "../colour-changing-icons/NextIcon";
-import { PreviousIcon } from "../colour-changing-icons/PreviousIcon";
+import CloseIcon from "../colour-changing-icons/CloseIcon"
+import NextIcon from "../colour-changing-icons/NextIcon"
+import PreviousIcon from "../colour-changing-icons/PreviousIcon"
 
 interface GalleryModalProps {
-    setIsGalleryModalOpen: (isOpen: boolean) => void;
+    isOpen: boolean,
+    onClose: () => void,
     activeImage: number,
     setActiveImage: (idx: number) => void,
     openPrevious: () => void,
     openNext: () => void,
 }
 
-export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen, activeImage, setActiveImage, openPrevious, openNext }) => {
-    const closeGalleryModal = () => {
-        setIsGalleryModalOpen(false)
-    }
-
-    return (
+const PhotoGalleryModal: FC<GalleryModalProps> = ({
+    isOpen,
+    onClose,
+    activeImage,
+    setActiveImage,
+    openPrevious,
+    openNext
+}) => {
+    return isOpen && (
         <div className="fixed inset-0 flex flex-col items-center justify-center w-full h-full bg-black/50"
-            onClick={closeGalleryModal} >
+            onClick={onClose} >
             <div className="relative" onClick={(evt) => evt.stopPropagation()}>
-                <button className="absolute -top-10 right-10 text-white cursor-pointer hover:text-amber-600" onClick={closeGalleryModal}>
+                <button className="absolute -top-10 right-10 text-white cursor-pointer hover:text-amber-600" onClick={onClose}>
                     <CloseIcon />
                 </button>
                 <div className="flex items-center">
@@ -38,7 +42,7 @@ export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen
             <div className="mt-6 flex items-center gap-4"
                 onClick={(evt) => evt.stopPropagation()}>
                 {imageThumbnailSrcs.map((src, idx) => {
-                    idx = idx + 1;
+                    idx = idx + 1
                     return <button className={`rounded-lg bg-white cursor-pointer ${idx === activeImage && "border-amber-600 border-2"}`} key={idx} onClick={() => setActiveImage(idx)}>
                         <Image className={`rounded-lg ${idx === activeImage && "opacity-50"}`} src={src} width={100} height={100} alt={`sneakers-${idx}`} />
                     </button>
@@ -47,3 +51,5 @@ export const PhotoGalleryModal: FC<GalleryModalProps> = ({ setIsGalleryModalOpen
         </div>
     )
 }
+
+export default PhotoGalleryModal

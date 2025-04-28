@@ -1,16 +1,17 @@
-import { FC } from 'react'
+import { FC } from "react"
 import Image from "next/image"
 import { useItemStore } from "@/app/store"
 import { ItemState } from "@/app/types"
 
 interface CartModalProps {
-    isModalOpen: boolean
+    isOpen: boolean,
 }
-export const CartModal: FC<CartModalProps> = ({ isModalOpen }) => {
+
+const CartModal: FC<CartModalProps> = ({ isOpen }) => {
     const itemsInCart = useItemStore((state: ItemState) => state.items)
     const removeAllItems = useItemStore((state: ItemState) => state.removeAllItems)
 
-    return isModalOpen && (
+    return isOpen && (
         <div className="absolute z-10 md:top-15 right-7 md:right-44 max-w-xs min-w-xs md:max-w-sm md:min-w-sm max-h-56 min-h-56 p-6 flex justify-center items-center rounded-md bg-white shadow-2xl">
             {itemsInCart > 0 ?
                 <div>
@@ -40,3 +41,5 @@ export const CartModal: FC<CartModalProps> = ({ isModalOpen }) => {
         </div>
     )
 }
+
+export default CartModal

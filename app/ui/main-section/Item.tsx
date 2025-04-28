@@ -2,12 +2,12 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { useItemStore } from "@/app/store";
-import { ItemState } from "@/app/types";
+import { useItemStore } from "@/app/store"
+import { ItemState } from "@/app/types"
 
-export const Item = () => {
+const Item = () => {
     const addToCart = useItemStore((state: ItemState) => state.addToCart)
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0)
 
     const handleAddItem = () => {
         setCount((prevCount) => prevCount + 1)
@@ -18,9 +18,10 @@ export const Item = () => {
     }
 
     const handleAddToCart = () => {
-        addToCart(count);
-        setCount(0);
+        addToCart(count)
+        setCount(0)
     }
+
     return (
         <article className="md:ml-16 px-5 md:px-0 py-5 md:py-0">
             <h3 className="mb-4 text-gray-400 font-semibold uppercase">Sneaker Company</h3>
@@ -57,3 +58,5 @@ export const Item = () => {
         </article>
     )
 }
+
+export default Item
